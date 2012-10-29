@@ -28,7 +28,7 @@
 <hr>
 
 <div id="contents">
-	<div class="container">
+	<div class="container" id="sample1-1">
 		<h2>Basic setting</h2>
 		<div class="row">
 			<div class="span4">
@@ -53,13 +53,9 @@
 ,   navItemSelector:  '.mod-tab-nav-item' //{string} selector
 ,   bodyListSelector: '.mod-tab-contents' //{string} selector
 ,   bodyItemSelector: '.mod-tab-contents-item' //{string} selector
+
 ,   active: 0 //{number} index number
 ,   activeClass: 'active' //{string}
-,   cookie: false //{boolean} true: 最後にactiveにしたtabをcookieに記憶
-,   cookieName: 'mod-tab-cookie' //{string}
-,   setClassUseActiveItem: true //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
-,   setClassUseActiveItemClass: 'mod-activeItem-' //{string}
-,   setClassUseActiveItemSelector: 'element' //{string} 'element' OR selector
 ,   speed: 150 //{number} animate speed
 ,   fixedHeight: true //{boolean} true: itemの高さを一番高いitemのheightに合わせる
 </pre>
@@ -67,6 +63,72 @@
 		</div>
 	</div>
 	
+	<hr>
+
+	<div class="container" id="sample2-1">
+		<h2>setClassUseActiveItem: true<br>
+		cookie: true</h2>
+		<div class="row">
+			<div class="span4">
+				<div class="mod-tab">
+					<ul class="mod-tab-nav nav">
+						<li class="mod-tab-nav-item"><a href="#">タブ1</a></li>
+						<li class="mod-tab-nav-item"><a href="#">タブ2</a></li>
+						<li class="mod-tab-nav-item"><a href="#">タブ3</a></li>
+					</ul>
+
+					<div class="mod-tab-contents">
+						<div class="mod-tab-contents-item "><p>タブ1の中身</p></div>
+						<div class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
+						<div class="mod-tab-contents-item "><p>タブ3の中身</p></div>
+					</div>
+					<p>下の要素</p>
+				</div>
+			</div>
+			<div class="span8">
+				<pre>
+    cookie: true //{boolean} true: 最後にactiveにしたtabをcookieに記憶
+,   cookieName: 'mod-tab-cookie' //{string}
+,   setClassUseActiveItem: true //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
+,   setClassUseActiveItemClass: 'mod-activeItem-' //{string}
+,   setClassUseActiveItemSelector: 'element' //{string} 'element' OR selector
+</pre>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="container" id="sample3-1">
+		<h2>other option</h2>
+		<div class="row">
+			<div class="span4">
+				<div class="mod-tab">
+					<ul class="mod-tab-nav nav">
+						<li class="mod-tab-nav-item"><a href="#">タブ1</a></li>
+						<li class="mod-tab-nav-item"><a href="#">タブ2</a></li>
+						<li class="mod-tab-nav-item"><a href="#">タブ3</a></li>
+					</ul>
+
+					<div class="mod-tab-contents">
+						<div class="mod-tab-contents-item "><p>タブ1の中身</p></div>
+						<div class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
+						<div class="mod-tab-contents-item "><p>タブ3の中身</p></div>
+					</div>
+					<p>下の要素</p>
+				</div>
+			</div>
+			<div class="span8">
+				<pre>
+    active: 1 //{number} index number
+,   activeClass: 'a-c-t-i-v-e' //{string}
+,   speed: 1000 //{number} animate speed
+,   fixedHeight: false //{boolean} true: itemの高さを一番高いitemのheightに合わせる
+</pre>
+			</div>
+		</div>
+	</div>
+
 	<hr>
 <!-- /#contents --></div>
 

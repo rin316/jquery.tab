@@ -26,7 +26,7 @@ DEFAULT_OPTIONS = {
 ,   activeClass: 'active' //{string}
 ,   cookie: false //{boolean} true: 最後にactiveにしたtabをcookieに記憶
 ,   cookieName: 'mod-tab-cookie' //{string}
-,   setClassUseActiveItem: true //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
+,   setClassUseActiveItem: false //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
 ,   setClassUseActiveItemClass: 'mod-activeItem-' //{string}
 ,   setClassUseActiveItemSelector: 'element' //{string} 'element' OR selector
 ,   speed: 150 //{number} animate speed
