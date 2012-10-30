@@ -17,8 +17,9 @@ $(document).ready(function(){
 	});
 
 	$('#sample3-1 .mod-tab').tab({
-	    active: 1 //{number} index number
-	,   activeClass: 'active' //{string}
+	    active: 1 //{number} - 初期表示のindex number. 0から始まる
+	,   activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+	,   nonActiveClass: 'nonActive' //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
 	,   speed: 1000 //{number} animate speed
 	,   fixedHeight: false //{boolean} true: itemの高さを一番高いitemのheightに合わせる
 	});

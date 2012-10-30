@@ -61,8 +61,14 @@
 	<hr>
 
 	<div class="container" id="sample2-1">
-		<h2>setClassChooseElement: true<br>
-		cookie: true</h2>
+		<h2>cookie: true<br>
+			setClassChooseElement: true</h2>
+
+		<p><code>cookie: true</code> 最後にactiveにしたtabをcookieに記憶</p>
+		<p><code>setClassChooseElement: true</code> 指定elementに対して「接頭詞+index番号」をclassとして付与</p>
+		<p><code>setClassChooseElementClass: 'mod-activeItem-'</code> 接頭詞</p>
+		<p><code>setClassChooseElementSelector: 'element' OR selector</code>指定element - 'element'の場合はプラグインを設定したelementに適用</p>
+
 		<div class="row">
 			<div class="span4">
 				<div class="mod-tab">
@@ -82,11 +88,11 @@
 			</div>
 			<div class="span8">
 				<pre>
-    cookie: true //{boolean} true: 最後にactiveにしたtabをcookieに記憶
+    cookie: true //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
 ,   cookieName: 'mod-tab-cookie' //{string}
-,   setClassChooseElement: true //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
-,   setClassUseActiveItemClass: 'mod-activeItem-' //{string}
-,   setClassChooseElementSelector: 'element' //{string} 'element' OR selector
+,   setClassChooseElement: true //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
+,   setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
+,   setClassChooseElementSelector: 'element' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
 </pre>
 			</div>
 		</div>
@@ -115,8 +121,9 @@
 			</div>
 			<div class="span8">
 				<pre>
-    active: 1 //{number} index number
-,   activeClass: 'active' //{string}
+    active: 1 //{number} - 初期表示のindex number. 0から始まる
+,   activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+,   nonActiveClass: 'nonActive' //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
 ,   speed: 1000 //{number} animate speed
 ,   fixedHeight: false //{boolean} true: itemの高さを一番高いitemのheightに合わせる
 </pre>
