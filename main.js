@@ -11,9 +11,9 @@ $(document).ready(function(){
 	$('#sample2-1 .mod-tab').tab({
 	    cookie: true //{boolean} true: 最後にactiveにしたtabをcookieに記憶
 	,   cookieName: 'mod-tab-cookie' //{string}
-	,   setClassUseActiveItem: true //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
+	,   setClassChooseElement: true //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
 	,   setClassUseActiveItemClass: 'mod-activeItem-' //{string}
-	,   setClassUseActiveItemSelector: 'element' //{string} 'element' OR selector
+	,   setClassChooseElementSelector: 'element' //{string} 'element' OR selector
 	});
 
 	$('#sample3-1 .mod-tab').tab({

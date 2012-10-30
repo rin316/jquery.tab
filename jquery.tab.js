@@ -18,19 +18,20 @@ var Tab
  * DEFAULT_OPTIONS
  */
 DEFAULT_OPTIONS = {
-    navListSelector:  '.mod-tab-nav' //{string} selector
-,   navItemSelector:  '.mod-tab-nav-item' //{string} selector
-,   bodyListSelector: '.mod-tab-contents' //{string} selector
-,   bodyItemSelector: '.mod-tab-contents-item' //{string} selector
-,   active: 0 //{number} index number
-,   activeClass: 'active' //{string}
-,   cookie: false //{boolean} true: 最後にactiveにしたtabをcookieに記憶
+    navListSelector:  '.mod-tab-nav' //{string} - selector
+,   navItemSelector:  '.mod-tab-nav-item' //{string} - selector
+,   bodyListSelector: '.mod-tab-contents' //{string} - selector
+,   bodyItemSelector: '.mod-tab-contents-item' //{string} - selector
+,   active: 0 //{number} - 初期表示のindex number. 0から始まる
+,   activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+,   nonActiveClass: false //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
+,   cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
 ,   cookieName: 'mod-tab-cookie' //{string}
-,   setClassUseActiveItem: false //{boolean} setClassUseActiveItemClass + index番号を、setClassUseActiveItemSelectorにclassとして付与
-,   setClassUseActiveItemClass: 'mod-activeItem-' //{string}
-,   setClassUseActiveItemSelector: 'element' //{string} 'element' OR selector
+,   setClassChooseElement: false //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
+,   setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
+,   setClassChooseElementSelector: 'element' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
 ,   speed: 150 //{number} animate speed
-,   fixedHeight: true //{boolean} true: itemの高さを一番高いitemのheightに合わせる
+,   fixedHeight: true //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
 };
 
 /**
@@ -38,9 +39,9 @@ DEFAULT_OPTIONS = {
  */
 Tab = function ($element, options) {
 	var self = this;
-	
+
 	self.o = $.extend({}, DEFAULT_OPTIONS, options);
-	
+
 	self.$element = $element;
 	self.$navList = self.$element.find($(self.o.navListSelector));
 	self.$navItem = self.$navList.find($(self.o.navItemSelector));
@@ -48,12 +49,13 @@ Tab = function ($element, options) {
 	self.$bodyItem = self.$bodyList.find($(self.o.bodyItemSelector));
 	self.$allItem = self.$bodyItem.add(self.$navItem);
 	self.index = self.o.active;
-	if (self.o.setClassUseActiveItem){
-		self.setClassUseActiveItemElement = (function () {
-			if (self.o.setClassUseActiveItemSelector === 'element'){
+
+	if (self.o.setClassChooseElement){
+		self.$setClassChooseElement = (function () {
+			if (self.o.setClassChooseElementSelector === 'element'){
 				return self.$element;
 			} else {
-				return self.$element.find($(self.o.setClassUseActiveItemSelector));
+				return self.$element.find($(self.o.setClassChooseElementSelector));
 			}
 		})();
 	}
@@ -86,10 +88,10 @@ Tab.prototype = {
 		self.animate('init');
 
 		//active tabにclassをset
-		self.setActiveClass();
+		self.setClass();
 
-		//active itemの番号を指定elementにclassとして付与
-		if (self.o.setClassUseActiveItem){ self.setClassUseActiveItem(); }
+		//指定elementに対して「接頭詞+index番号」をclassとして付与
+		if (self.o.setClassChooseElement){ self.setClassChooseElement(); }
 
 		//itemの高さを一番高いitemのheightに合わせる
 		if (self.o.fixedHeight) { self.fixedHeight()}
@@ -99,6 +101,7 @@ Tab.prototype = {
 			var index = self.$navItem.index(this);
 
 			e.preventDefault();
+
 			//self.indexを更新 更新が無ければ処理を停止
 			if(! self.indexUpdate(index)) { return false; }
 
@@ -108,11 +111,11 @@ Tab.prototype = {
 			//active tabのみを表示
 			self.animate();
 
-			//active classをset
-			self.setActiveClass();
+			//active tabにclassをset
+			self.setClass();
 
-			//active itemの番号を指定elementにclassとして付与
-			if (self.o.setClassUseActiveItem){ self.setClassUseActiveItem(); }
+			//指定elementに対して「接頭詞+index番号」をclassとして付与
+			if (self.o.setClassChooseElement){ self.setClassChooseElement(); }
 		});
 	}
 	,
@@ -141,31 +144,43 @@ Tab.prototype = {
 	,
 
 	/**
-	 * setActiveClass
+	 * setClass
 	 * self.index番目のnav, bodyにactive classをset
+	 * active以外のnav, bodyにnonActive classをset
+	 *
 	 */
-	setActiveClass: function () {
+	setClass: function () {
 		var self = this;
 
-		self.$allItem.removeClass(self.o.activeClass);
-		self.$navItem.eq(self.index).addClass(self.o.activeClass);
-		self.$bodyItem.eq(self.index).addClass(self.o.activeClass);
+		self.$allItem
+			.removeClass(self.o.activeClass)
+			.addClass(self.o.nonActiveClass)
+		;
+		self.$navItem.eq(self.index)
+			.addClass(self.o.activeClass)
+			.removeClass(self.o.nonActiveClass)
+		;
+		self.$bodyItem.eq(self.index)
+			.addClass(self.o.activeClass)
+			.removeClass(self.o.nonActiveClass)
+		;
+
 	}
 	,
 
 	/**
-	 * setClassUseActiveItem
-	 * active itemの番号を指定elementにclassとして付与
+	 * setClassChooseElement
+	 * 指定elementに対して「接頭詞+index番号」をclassとして付与
 	 */
-	setClassUseActiveItem: function () {
+	setClassChooseElement: function () {
 		var self = this
 		,   i
 		;
 
 		for (i = 0; i < self.$navItem.length; i++){
-			self.setClassUseActiveItemElement.removeClass(self.o.setClassUseActiveItemClass + i);
+			self.$setClassChooseElement.removeClass(self.o.setClassChooseElementClass + i);
 		}
-		self.setClassUseActiveItemElement.addClass(self.o.setClassUseActiveItemClass + self.index);
+		self.$setClassChooseElement.addClass(self.o.setClassChooseElementClass + self.index);
 	}
 	,
 
