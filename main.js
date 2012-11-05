@@ -6,8 +6,9 @@
 (function ($, window, undefined) {
 
 $(document).ready(function(){
-	$('#sample1-1 .mod-tab').tab();
+	$('#sample1-1 .mod-tab-nav').tab();
 
+	/*
 	$('#sample2-1 .mod-tab').tab({
 	    cookie: true //{boolean} true: 最後にactiveにしたtabをcookieに記憶
 	,   cookieName: 'mod-tab-cookie' //{string}
@@ -23,6 +24,7 @@ $(document).ready(function(){
 	,   speed: 1000 //{number} animate speed
 	,   fixedHeight: false //{boolean} true: itemの高さを一番高いitemのheightに合わせる
 	});
+	*/
 });
 
 

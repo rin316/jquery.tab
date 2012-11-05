@@ -18,20 +18,18 @@ var Tab
  * DEFAULT_OPTIONS
  */
 DEFAULT_OPTIONS = {
-    navListSelector:  '.mod-tab-nav' //{string} - selector
-,   navItemSelector:  '.mod-tab-nav-item' //{string} - selector
-,   bodyListSelector: '.mod-tab-contents' //{string} - selector
-,   bodyItemSelector: '.mod-tab-contents-item' //{string} - selector
-,   active: 0 //{number} - 初期表示のindex number. 0から始まる
-,   activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
-,   nonActiveClass: false //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
-,   cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
-,   cookieName: 'mod-tab-cookie' //{string}
-,   setClassChooseElement: false //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
-,   setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
-,   setClassChooseElementSelector: 'element' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
-,   speed: 150 //{number} animate speed
-,   fixedHeight: true //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+	 navItemSelector: 'a'
+	,active: 0 //{number} - 初期表示のindex number. 0から始まる
+	,activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+	,nonActiveClass: false //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
+	,bodyWrapperClass: 'mod-tab-bodyWrapper'
+	,cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
+	,cookieName: 'mod-tab-cookie' //{string}
+	,setClassChooseElement: false //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
+	,setClassChooseElementSelector: 'body' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
+	,setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
+	,speed: 0 //{number} animate speed
+	,fixedHeight: false //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
 };
 
 /**
@@ -42,23 +40,17 @@ Tab = function ($element, options) {
 
 	self.o = $.extend({}, DEFAULT_OPTIONS, options);
 
-	self.$element = $element;
-	self.$navList = self.$element.find($(self.o.navListSelector));
-	self.$navItem = self.$navList.find($(self.o.navItemSelector));
-	self.$bodyList = self.$element.find($(self.o.bodyListSelector));
-	self.$bodyItem = self.$bodyList.find($(self.o.bodyItemSelector));
-	self.$allItem = self.$bodyItem.add(self.$navItem);
-	self.index = self.o.active;
+	self.$navItem = $element.find(self.o.navItemSelector);
+	self.$bodyItem = $();
+	self.$navItem.each(function () {
+		self.$bodyItem = $.merge(self.$bodyItem, ($( $(this).attr('href') )));
+	});
 
-	if (self.o.setClassChooseElement){
-		self.$setClassChooseElement = (function () {
-			if (self.o.setClassChooseElementSelector === 'element'){
-				return self.$element;
-			} else {
-				return self.$element.find($(self.o.setClassChooseElementSelector));
-			}
-		})();
-	}
+	self.$bodyItem.wrapAll($('<div/>',{ 'class': self.o.bodyWrapperClass}));
+	self.$bodyWrapper = self.$bodyItem.parent();
+	self.$allItem = self.$bodyItem.add(self.$navItem);
+	self.$setClassChooseElement = $(self.o.setClassChooseElementSelector);
+	self.index = self.o.active;
 	self.isMoving = false;
 
 	self.init();
@@ -84,38 +76,22 @@ Tab.prototype = {
 			}
 		}
 
-		//active tabのみを表示
-		self.animate('init');
-
-		//active tabにclassをset
-		self.setClass();
-
-		//指定elementに対して「接頭詞+index番号」をclassとして付与
-		if (self.o.setClassChooseElement){ self.setClassChooseElement(); }
-
-		//itemの高さを一番高いitemのheightに合わせる
-		if (self.o.fixedHeight) { self.fixedHeight()}
+		self.setClass();//active tabにclassをset
+		if (self.o.setClassChooseElement){ self.setClassChooseElement(); }//指定elementに対して「接頭詞+index番号」をclassとして付与
+		self.animate('init');//active tabのみを表示
+		if (self.o.fixedHeight) { self.fixedHeight('max')}//itemの高さを一番高いitemのheightに合わせる
 
 		//Click Event
 		self.$navItem.on('click', function (e) {
 			var index = self.$navItem.index(this);
-
 			e.preventDefault();
 
-			//self.indexを更新 更新が無ければ処理を停止
-			if(! self.indexUpdate(index)) { return false; }
-
-			//set cookie
-			if (self.o.cookie) { $.cookie(self.o.cookieName, self.index); }
-
-			//active tabのみを表示
-			self.animate();
-
-			//active tabにclassをset
-			self.setClass();
-
-			//指定elementに対して「接頭詞+index番号」をclassとして付与
-			if (self.o.setClassChooseElement){ self.setClassChooseElement(); }
+			if(! self.indexUpdate(index)) { return false; }//self.indexを更新 更新が無ければ処理を停止
+			if (self.o.cookie) { $.cookie(self.o.cookieName, self.index); }//set cookie
+			self.setClass();//active tabにclassをset
+			if (self.o.setClassChooseElement){ self.setClassChooseElement(); }//指定elementに対して「接頭詞+index番号」をclassとして付与
+			self.animate();//active tabのみを表示
+			if (! self.o.fixedHeight) { self.fixedHeight('auto')}//itemの高さをゆっくり変更
 		});
 	}
 	,
@@ -189,37 +165,67 @@ Tab.prototype = {
 	 * fadeアニメーション
 	 */
 	animate: function (init) {
-		var self = this
-		,   speed =  (init === 'init') ? 0 : self.o.speed
-		;
+		var self = this;
 
-		self.isMoving = true;
-		self.$bodyItem.fadeOut(speed);
-		setTimeout(function () {
-			self.$bodyItem.eq(self.index).fadeIn(speed, function () {
-				self.isMoving = false;
-			});
-		}, speed)
+		switch (init){
+			case 'init':
+				self.$bodyItem.hide();
+				self.$bodyItem.eq(self.index).show();
+				break;
+
+			default:
+				self.isMoving = true;
+
+				self.$bodyItem.each(function () {
+					if( $(this).is(':visible') ) {
+						$(this).fadeOut(self.o.speed, function () {
+							self.$bodyItem.eq(self.index).fadeIn(self.o.speed, function () {
+								self.isMoving = false;
+							});
+						})
+					}
+				});
+				break;
+		}
 	}
 	,
 
 	/**
 	 * fixedHeight
-	 * itemの高さを一番高いitemのheightに合わせる
+	 * @param {string} heightState - max:itemの高さを一番高いitemのheightに合わせる auto:自動調整アニメーション
 	 */
-	fixedHeight: function () {
+	fixedHeight: function (heightState) {
 		var self = this
-		,   maxH = 0
+		,   height = 0
 		;
+		switch (heightState){
+			case 'max':
+				self.$bodyItem.each(function(){
+					height = Math.max(height, $(this).outerHeight());
+				});
 
-		self.$bodyItem.each(function(){
-			maxH = Math.max(maxH, $(this).outerHeight());
-		});
+				if (navigator.userAgent.indexOf("MSIE 6") != -1) {
+					self.$bodyWrapper.height(height);
+				} else {
+					self.$bodyWrapper.css({ minHeight: height + 'px' });
+				}
+				break;
 
-		if(navigator.userAgent.indexOf("MSIE 6") != -1){
-			self.$bodyList.height(maxH);
-		}else{
-			self.$bodyList.css({ minHeight: maxH + 'px' });
+			case 'auto':
+				self.isMoving = true;
+				height= self.$bodyItem.eq(self.index).outerHeight();
+
+				self.$bodyWrapper.animate(
+					{ height: height },
+					{
+						duration: self.o.speed * 2
+						,complete: function () {
+							self.isMoving = false;
+							$(this).css({ height: 'auto' });
+						}
+					}
+				);
+				break;
 		}
 	}
 	
