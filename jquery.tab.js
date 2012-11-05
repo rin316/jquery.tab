@@ -20,7 +20,7 @@ var Tab
 DEFAULT_OPTIONS = {
 	 navItemSelector: 'a'
 	,active: 0 //{number} - 初期表示のindex number. 0から始まる
-	,activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+	,activeClass: 'current' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
 	,nonActiveClass: false //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
 	,bodyWrapperClass: 'mod-tab-bodyWrapper'
 	,cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
