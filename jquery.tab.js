@@ -2,10 +2,10 @@
  * jquery.tab.js
  *
  * @varsion   1.0
- * @require   jquery.js, jquery.cookie.js
+ * @require   jquery.js, jquery.cookie.js(if cookie:true)
  * @create    2012-10-29
- * @modify    2012-10-29
- * @author    rin316 [Yuta Hayashi]
+ * @modify    2012-11-07
+ * @author    rin316 [Yuta Hayashi] - http://5am.jp/
  * @link      https://github.com/rin316/jquery.tab/
  */
 ;(function ($, window, undefined) {
@@ -62,11 +62,11 @@ Tab = function ($element, options) {
 /**
  * Tab.prototype
  */
-Tab.prototype = {
+(function (fn) {
 	/**
 	 * init
 	 */
-	init: function () {
+	fn.init = function () {
 		var self = this;
 
 		//cookieが存在すればself.indexを更新
@@ -93,15 +93,14 @@ Tab.prototype = {
 			self.animate();//active tabのみを表示
 			if (! self.o.fixedHeight) { self.fixedHeight('auto')}//itemの高さをゆっくり変更
 		});
-	}
-	,
+	};
 
 	/**
 	 * indexUpdate
 	 * self.indexを引数のindexに更新する
 	 * @param {number} index self.indexをこの値に書き換える。0から始まる
 	 */
-	indexUpdate: function (index) {
+	fn.indexUpdate = function (index) {
 		var self = this;
 
 		if (! self.isMoving) {
@@ -116,8 +115,7 @@ Tab.prototype = {
 			return false;
 		}
 
-	}
-	,
+	};
 
 	/**
 	 * setClass
@@ -125,7 +123,7 @@ Tab.prototype = {
 	 * active以外のnav, bodyにnonActive classをset
 	 *
 	 */
-	setClass: function () {
+	fn.setClass = function () {
 		var self = this;
 
 		self.$allItem
@@ -140,31 +138,28 @@ Tab.prototype = {
 			.addClass(self.o.activeClass)
 			.removeClass(self.o.nonActiveClass)
 		;
-
-	}
-	,
+	};
 
 	/**
 	 * setClassChooseElement
 	 * 指定elementに対して「接頭詞+index番号」をclassとして付与
 	 */
-	setClassChooseElement: function () {
+	fn.setClassChooseElement = function () {
 		var self = this
-		,   i
-		;
+			,   i
+			;
 
 		for (i = 0; i < self.$navItem.length; i++){
 			self.$setClassChooseElement.removeClass(self.o.setClassChooseElementClass + i);
 		}
 		self.$setClassChooseElement.addClass(self.o.setClassChooseElementClass + self.index);
-	}
-	,
+	};
 
 	/**
 	 * animate
 	 * fadeアニメーション
 	 */
-	animate: function (init) {
+	fn.animate = function (init) {
 		var self = this;
 
 		switch (init){
@@ -187,17 +182,16 @@ Tab.prototype = {
 				});
 				break;
 		}
-	}
-	,
+	};
 
 	/**
 	 * fixedHeight
 	 * @param {string} heightState - max:itemの高さを一番高いitemのheightに合わせる auto:自動調整アニメーション
 	 */
-	fixedHeight: function (heightState) {
+	fn.fixedHeight = function (heightState) {
 		var self = this
-		,   height = 0
-		;
+			,   height = 0
+			;
 		switch (heightState){
 			case 'max':
 				self.$bodyItem.each(function(){
@@ -220,16 +214,15 @@ Tab.prototype = {
 					{
 						duration: self.o.speed * 2
 						,complete: function () {
-							self.isMoving = false;
-							$(this).css({ height: 'auto' });
-						}
+						self.isMoving = false;
+						$(this).css({ height: 'auto' });
+					}
 					}
 				);
 				break;
 		}
-	}
-	
-};//Tab.prototype
+	};
+})(Tab.prototype);//Tab.prototype
 
 
 /**
@@ -240,7 +233,6 @@ $.fn.tab = function (options) {
 		var $this = $(this);
 		$this.data('tab', new Tab($this, options));
 	});
-};//$.fn.Tab
-
+};
 
 })(jQuery, this);

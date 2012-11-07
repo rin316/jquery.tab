@@ -48,51 +48,59 @@
 				</div>
 			</div>
 			<div class="span8">
-				<pre>
-    navListSelector:  '.mod-tab-nav' //{string} selector
-,   navItemSelector:  '.mod-tab-nav-item' //{string} selector
-,   bodyListSelector: '.mod-tab-contents' //{string} selector
-,   bodyItemSelector: '.mod-tab-contents-item' //{string} selector
+<pre>
+&lt;div id=&quot;sample1-1&quot;&gt;
+	&lt;ul class=&quot;mod-tab-nav&quot;&gt;
+		&lt;li&gt;&lt;a href=&quot;#sample1-1-1&quot;&gt;タブ1&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href=&quot;#sample1-1-2&quot;&gt;タブ2&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href=&quot;#sample1-1-3&quot;&gt;タブ3&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+
+	&lt;div class=&quot;mod-tab-contents&quot;&gt;
+		&lt;div id=&quot;sample1-1-1&quot;&gt;タブ1の中身&lt;/p&gt;&lt;/div&gt;
+		&lt;div id=&quot;sample1-1-2&quot;&gt;タブ2の中身&lt;/p&gt;&lt;/div&gt;
+		&lt;div id=&quot;sample1-1-3&quot;&gt;タブ3の中身&lt;/p&gt;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<pre>
+$(document).ready(function(){
+	$('#sample1-1 .mod-tab-nav').tab();
+});
 </pre>
 			</div>
 		</div>
 	</div>
-	
+
 	<hr>
-
+	
 	<div class="container" id="sample2-1">
-		<h2>cookie: true<br>
-			setClassChooseElement: true</h2>
-
-		<p><code>cookie: true</code> 最後にactiveにしたtabをcookieに記憶</p>
-		<p><code>setClassChooseElement: true</code> 指定elementに対して「接頭詞+index番号」をclassとして付与</p>
-		<p><code>setClassChooseElementClass: 'mod-activeItem-'</code> 接頭詞</p>
-		<p><code>setClassChooseElementSelector: 'element' OR selector</code>指定element - 'element'の場合はプラグインを設定したelementに適用</p>
-
+		<h2>speed</h2>
 		<div class="row">
 			<div class="span4">
 				<div class="mod-tab">
 					<ul class="mod-tab-nav nav">
-						<li><a href="#">タブ1</a></li>
-						<li><a href="#">タブ2</a></li>
-						<li><a href="#">タブ3</a></li>
+						<li><a href="#sample2-1-1">タブ1</a></li>
+						<li><a href="#sample2-1-2">タブ2</a></li>
+						<li><a href="#sample2-1-3">タブ3</a></li>
 					</ul>
 
 					<div class="mod-tab-contents">
-						<div class="mod-tab-contents-item "><p>タブ1の中身</p></div>
-						<div class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
-						<div class="mod-tab-contents-item "><p>タブ3の中身</p></div>
+						<div id="sample2-1-1" class="mod-tab-contents-item "><p>タブ1の中身</p></div>
+						<div id="sample2-1-2" class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
+						<div id="sample2-1-3" class="mod-tab-contents-item "><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p></div>
 					</div>
 					<p>下の要素</p>
 				</div>
 			</div>
 			<div class="span8">
 				<pre>
-    cookie: true //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
-,   cookieName: 'mod-tab-cookie' //{string}
-,   setClassChooseElement: true //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
-,   setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
-,   setClassChooseElementSelector: 'element' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
+$(document).ready(function(){
+	$('#sample2-1 .mod-tab-nav').tab({
+		speed: 200 //{number} animate speed
+	});
+});
 </pre>
 			</div>
 		</div>
@@ -101,37 +109,84 @@
 	<hr>
 
 	<div class="container" id="sample3-1">
-		<h2>other option</h2>
+		<h2>cookie, fixedHeight:true</h2>
 		<div class="row">
 			<div class="span4">
 				<div class="mod-tab">
 					<ul class="mod-tab-nav nav">
-						<li><a href="#">タブ1</a></li>
-						<li><a href="#">タブ2</a></li>
-						<li><a href="#">タブ3</a></li>
+						<li><a href="#sample3-1-1">タブ1</a></li>
+						<li><a href="#sample3-1-2">タブ2</a></li>
+						<li><a href="#sample3-1-3">タブ3</a></li>
 					</ul>
 
 					<div class="mod-tab-contents">
-						<div class="mod-tab-contents-item "><p>タブ1の中身</p></div>
-						<div class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
-						<div class="mod-tab-contents-item "><p>タブ3の中身</p></div>
+						<div id="sample3-1-1" class="mod-tab-contents-item "><p>タブ1の中身</p></div>
+						<div id="sample3-1-2" class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
+						<div id="sample3-1-3" class="mod-tab-contents-item "><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p></div>
 					</div>
 					<p>下の要素</p>
 				</div>
 			</div>
 			<div class="span8">
 				<pre>
-    active: 1 //{number} - 初期表示のindex number. 0から始まる
-,   activeClass: 'active' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
-,   nonActiveClass: 'nonActive' //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
-,   speed: 1000 //{number} animate speed
-,   fixedHeight: false //{boolean} true: itemの高さを一番高いitemのheightに合わせる
+$(document).ready(function(){
+	$('#sample3-1 .mod-tab-nav').tab({
+		cookie: true //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
+		,cookieName: 'mod-tab-cookie' //{string}
+		,fixedHeight: true //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+	});
+});
 </pre>
 			</div>
 		</div>
 	</div>
 
 	<hr>
+
+	<div class="container" id="sample4-1">
+		<h2>other option</h2>
+		<div class="row">
+			<div class="span4">
+				<div class="mod-tab">
+					<ul class="mod-tab-nav nav">
+						<li><a href="#sample4-1-1">タブ1</a></li>
+						<li><a href="#sample4-1-2">タブ2</a></li>
+						<li><a href="#sample4-1-3">タブ3</a></li>
+					</ul>
+
+					<div class="mod-tab-contents">
+						<div id="sample4-1-1" class="mod-tab-contents-item "><p>タブ1の中身</p></div>
+						<div id="sample4-1-2" class="mod-tab-contents-item "><p>タブ2の中身<br>タブ2の中身<br>タブ2の中身</p></div>
+						<div id="sample4-1-3" class="mod-tab-contents-item "><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p><p>タブ3の中身</p></div>
+					</div>
+					<p>下の要素</p>
+				</div>
+			</div>
+			<div class="span8">
+				<pre>
+$(document).ready(function(){
+	$('#sample4-1 .mod-tab-nav').tab({
+		 navItemSelector: 'a'
+		,active: 2 //{number} - 初期表示のindex number. 0から始まる
+		,activeClass: 'current' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+		,nonActiveClass: 'non-active' //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
+		,bodyWrapperClass: 'mod-tab-bodyWrapper'
+		,cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
+		,cookieName: 'mod-tab-cookie' //{string}
+		,setClassChooseElement: true //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
+		,setClassChooseElementSelector: 'body' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
+		,setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
+		,speed: 200 //{number} animate speed
+		,fixedHeight: true //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+	});
+});
+</pre>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+	
 <!-- /#contents --></div>
 
 <!-- /#document --></div>
