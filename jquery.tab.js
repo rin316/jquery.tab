@@ -18,20 +18,20 @@ var Tab
  * DEFAULT_OPTIONS
  */
 DEFAULT_OPTIONS = {
-	 navItemSelector: 'a'
-	,active: 0 //{number} - 初期表示のindex number. 0から始まる
-	,activeClass: 'current' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
-	,nonActiveClass: false //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
-	,bodyWrapperClass: 'mod-tab-bodyWrapper'
-	,cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
-	,cookieName: 'mod-tab-cookie' //{string}
-	,setClassChooseElement: false //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
-	,setClassChooseElementSelector: 'body' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
-	,setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
-	,speed: 0 //{number} animate speed
-	,fixedHeight: false //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+	 navItemSelector: 'a'                          // selector - e.g. a - hrefの設定された要素
+	,active: 0                                     // number - e.g. 0 - 初期表示のindex number. 0から始まる
+	,activeClass: 'current'                        // false || string - e.g. 'current' - activeなnav, bodyに付与するclass名。falseの場合は付与しない
+	,nonActiveClass: false                         // false || string - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
+	,bodyWrapperClass: 'mod-tab-bodyWrapper'       // class - e.g.'mod-tab-bodyWrapper' - $bodyItemをwrapする要素のclass名。高さ調整に使用する
+	,cookie: false                                 // true || false - true=最後にactiveにしたtabをcookieに記憶
+	,cookieName: 'mod-tab-cookie'                  // string - e.g. 'mod-tab-cookie' - cookie名
 	,hash: false                                   // true || false - true=URLのhashにtabのidがあればそのtabをcurrentにする
 	,hashMoveDisabled: false                       // true || false - true=URLのhashにtabのidがあってもそのtabまでスクロールさせない(hash:true の時のみ適用)
+	,setClassChooseElement: false                  // true || false - true=指定elementに対して「接頭辞+index番号」をclassとして付与。bodyなどにactive tabのclass名を付ける時に使用する
+	,setClassChooseElementSelector: 'body'         // selector - 指定element (setClassChooseElement:trueの場合に使用)
+	,setClassChooseElementClass: 'mod-activeItem-' // string - 接頭辞 (setClassChooseElement:trueの場合に使用)
+	,speed: 0                                      // number - animation speed
+	,fixedHeight: 'auto'                           // false || auto || max - false=高さを各itemの高さに変更, auto=高さを各itemの高さに変更(アニメーション), max=高さを一番高いitemの高さに統一
 };
 
 /**
