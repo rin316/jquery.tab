@@ -1,10 +1,10 @@
 /*!
  * jquery.tab.js
  *
- * @varsion   1.0
+ * @varsion   1.1
  * @require   jquery.js, jquery.cookie.js(if cookie:true)
  * @create    2012-10-29
- * @modify    2012-11-07
+ * @modify    2012-12-05 hash機能追加
  * @author    rin316 [Yuta Hayashi] - http://5am.jp/
  * @link      https://github.com/rin316/jquery.tab/
  */
