@@ -71,9 +71,7 @@ Tab = function ($element, options) {
 	 */
 	fn.init = function () {
 		var self = this;
-
 		//cookieが存在すればself.indexを更新
-		if (self.o.cookie) {
 		if (self.o.cookie && $.cookie(self.o.cookieName)) {
 			self.index = $.cookie(self.o.cookieName);
 		}
