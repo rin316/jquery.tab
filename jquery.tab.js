@@ -47,7 +47,6 @@ Tab = function ($element, options) {
 	self.$navItem.each(function () {
 		self.$bodyItem = $.merge(self.$bodyItem, ($( $(this).attr('href') )));
 	});
-
 	self.$bodyItem.wrapAll($('<div/>',{ 'class': self.o.bodyWrapperClass}));
 	self.$bodyWrapper = self.$bodyItem.parent();
 	self.$allItem = self.$bodyItem.add(self.$navItem);
@@ -55,7 +54,6 @@ Tab = function ($element, options) {
 	self.hash = location.hash;
 	self.index = self.o.active;
 	self.isMoving = false;
-
 	self.init();
 
 	return self;
