@@ -221,17 +221,18 @@ Tab = function ($element, options) {
 
 	/**
 	 * setClassChooseElement
-	 * 指定elementに対して「接頭詞+index番号」をclassとして付与
+	 * 指定elementに対して「接頭辞+index番号」をclassとして付与
 	 */
 	fn.setClassChooseElement = function () {
-		var self = this
-			,   i
-			;
-
-		for (i = 0; i < self.$navItem.length; i++){
-			self.$setClassChooseElement.removeClass(self.o.setClassChooseElementClass + i);
+		if (this.o.setClassChooseElement){
+			var  self = this
+				,i
+				;
+			for (i = 0; i < self.$navItem.length; i++){
+				self.$setClassChooseElement.removeClass(self.o.setClassChooseElementClass + i);
+			}
+			self.$setClassChooseElement.addClass(self.o.setClassChooseElementClass + self.index);
 		}
-		self.$setClassChooseElement.addClass(self.o.setClassChooseElementClass + self.index);
 	};
 
 	/**
