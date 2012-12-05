@@ -11,32 +11,36 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$('#sample2-1 .mod-tab-nav').tab({
-		speed: 200 //{number} animate speed
+		speed: 200
 	});
 });
 
 $(document).ready(function(){
 	$('#sample3-1 .mod-tab-nav').tab({
-		cookie: true //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
-		,cookieName: 'mod-tab-cookie' //{string}
-		,fixedHeight: true //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+		 cookie: true
+		,cookieName: 'mod-tab-cookie'
+		,fixedHeight: 'max'
+	});
+});
+
+$(document).ready(function(){
+	$('#sample2-2 .mod-tab-nav').tab({
+		hash: true
 	});
 });
 
 $(document).ready(function(){
 	$('#sample4-1 .mod-tab-nav').tab({
 		 navItemSelector: 'a'
-		,active: 2 //{number} - 初期表示のindex number. 0から始まる
-		,activeClass: 'current' //{boolean, string} - activeなnav, bodyに付与するclass名。falseの場合は付与しない
-		,nonActiveClass: 'non-active' //{boolean, string} - active以外のnav, bodyに付与するclass名。falseの場合は付与しない
+		,active: 2
+		,activeClass: 'current'
+		,nonActiveClass: 'non-active'
 		,bodyWrapperClass: 'mod-tab-bodyWrapper'
-		,cookie: false //{boolean} true: - 最後にactiveにしたtabをcookieに記憶
-		,cookieName: 'mod-tab-cookie' //{string}
-		,setClassChooseElement: true //{boolean} - true: 指定elementに対して「接頭詞+index番号」をclassとして付与
-		,setClassChooseElementSelector: 'body' //{string} - 'element' OR selector - 指定element(setClassChooseElement:trueの場合に使用)
-		,setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
-		,speed: 200 //{number} animate speed
-		,fixedHeight: true //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+		,setClassChooseElement: true
+		,setClassChooseElementSelector: '#sample4-1'
+		,setClassChooseElementClass: 'mod-activeItem-'
+		,speed: 200
+		,fixedHeight: 'max'
 	});
 });
 

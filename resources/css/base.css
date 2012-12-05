@@ -50,12 +50,17 @@ hr {
 		line-height: 50px;
 	}
 
+.under_dummy {
+	padding: 10px;
+	background-color: #F5F5F5;
+}
+
 
 
 /*-- bootstrap tab css --*/
 .mod-tab-nav,
 .nav-pills {
-    *zoom: 1;
+	*zoom: 1;
 }
 
 .mod-tab-nav:before,
@@ -107,13 +112,14 @@ hr {
     border-color: #eeeeee #eeeeee #dddddd;
 }
 
-.mod-tab-nav > .active > a,
-.mod-tab-nav > .active > a:hover {
+.mod-tab-nav a.current,
+.mod-tab-nav a.current:hover {
     color: #555555;
     cursor: default;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
+	text-decoration: none;
 }
 
 .nav-pills > li > a {
