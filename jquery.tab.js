@@ -229,19 +229,19 @@ Tab = function ($element, options) {
 	/**
 	 * animate
 	 * fadeアニメーション
+	 * @param {string} state init=ready時にアニメーションせずtabを切り替える
 	 */
-	fn.animate = function (init) {
+	fn.animate = function (state) {
 		var self = this;
 
-		switch (init){
+		switch (state){
+			//ready時にアニメーションせずtabを切り替える
 			case 'init':
 				self.$bodyItem.hide();
 				self.$bodyItem.eq(self.index).show();
 				break;
-
 			default:
 				self.isMoving = true;
-
 				self.$bodyItem.each(function () {
 					if( $(this).is(':visible') ) {
 						$(this).fadeOut(self.o.speed, function () {
