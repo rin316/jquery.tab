@@ -74,11 +74,27 @@ Tab = function ($element, options) {
 
 		//cookieが存在すればself.indexを更新
 		if (self.o.cookie) {
-			if ($.cookie(self.o.cookieName)){
-				self.index = $.cookie(self.o.cookieName);
-			}
+		if (self.o.cookie && $.cookie(self.o.cookieName)) {
+			self.index = $.cookie(self.o.cookieName);
 		}
+		//高さを一番高いitemの高さに統一
+		if (self.o.fixedHeight === 'max') { self.fixedHeight('max')}
+		//active tabのみを表示
+		self.animate('init');
+		//URLにhashが含まれていたらそのhashの要素のindexをself.indexとしてcurrentにする
+		self.indexUpdateUseHash(function () {
+			//active tabを更新
+			self.animate('init');
+			//トップに移動、またはURL hashの位置に移動(animate,fixedHeightの後に実行する必要)
+			self.movePosition();
+		});
+		//active tabにclassをset
+		self.setClass();
+		//指定elementに対して「接頭辞+index番号」をclassとして付与
+		self.setClassChooseElement();
+		//Eventをbind
 		self.eventify();
+	};
 
 	/**
 	 * eventify
