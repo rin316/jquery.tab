@@ -113,6 +113,7 @@ Tab = function ($element, options) {
 			self.setClassChooseElement();
 			//active tabのみを表示
 			self.animate();
+			if (self.o.fixedHeight === 'auto') { self.fixedHeight('auto')}
 		});
 	};
 
