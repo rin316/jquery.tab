@@ -30,6 +30,7 @@ DEFAULT_OPTIONS = {
 	,setClassChooseElementClass: 'mod-activeItem-' //{string} - 接頭詞(setClassChooseElement:trueの場合に使用)
 	,speed: 0 //{number} animate speed
 	,fixedHeight: false //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
+	,hash: false                                   // true || false - true=URLのhashにtabのidがあればそのtabをcurrentにする
 };
 
 /**
@@ -96,6 +97,23 @@ Tab = function ($element, options) {
 	};
 
 	/**
+	 * indexUpdateUseHash
+	 * URLにhashが含まれていたらそのhashの要素indexをself.indexとしてcurrentにする
+	 */
+	fn.indexUpdateUseHash = function (callback) {
+		if (this.o.hash && this.hash) {
+			var self = this;
+			self.$bodyItem.each(function (i) {
+				$this = $(this);
+				//URLのhashと$bodyItem[i]のidが同じであればself.indexを更新
+				if (self.hash === ('#' + $this.attr('id'))) {
+					self.index = i;
+					callback();
+					return false;
+				}
+			});
+		}
+	};
 	 * indexUpdate
 	 * self.indexを引数のindexに更新する
 	 * @param {number} index self.indexをこの値に書き換える。0から始まる
