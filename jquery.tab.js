@@ -31,6 +31,7 @@ DEFAULT_OPTIONS = {
 	,speed: 0 //{number} animate speed
 	,fixedHeight: false //{boolean} - true: itemの高さを一番高いitemのheightに合わせる
 	,hash: false                                   // true || false - true=URLのhashにtabのidがあればそのtabをcurrentにする
+	,hashMoveDisabled: false                       // true || false - true=URLのhashにtabのidがあってもそのtabまでスクロールさせない(hash:true の時のみ適用)
 };
 
 /**
@@ -114,6 +115,38 @@ Tab = function ($element, options) {
 			});
 		}
 	};
+
+	/**
+	 * movePosition
+	 * トップに移動、またはURL hashの位置に移動
+	 */
+	fn.movePosition = function () {
+		var  self = this
+			,defaultScrollTop = $(window).scrollTop()
+			,$targetBody
+			;
+		//html, bodyのどちらでscrollTopが取得できるか確認
+		$(window).scrollTop( defaultScrollTop + 1 );
+		if ( $('html').scrollTop() > 0 ) {
+			$targetBody = $('html');
+		} else if ( $('body').scrollTop() > 0 ) {
+			$targetBody = $('body');
+		}
+		$(window).scrollTop( defaultScrollTop - 1 );
+
+		//URLのhashにtabのidがあってもそのtabまでスクロールせずトップを表示
+		if (self.o.hashMoveDisabled) {
+			setTimeout(function () {
+				$targetBody.animate({ scrollTop: 0 }, 0);
+			}, 1);//fix IE 9 - 1/1000秒待たなければ移動しない
+		} else {
+			//fix Firefox16 - hash tabへのスクロール位置が下にずれているので正しい位置へfix
+			var y = $(self.hash).offset().top;
+			$targetBody.animate({ scrollTop: y }, 0);
+		}
+	};
+
+	/**
 	 * indexUpdate
 	 * self.indexを引数のindexに更新する
 	 * @param {number} index self.indexをこの値に書き換える。0から始まる
