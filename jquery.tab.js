@@ -52,6 +52,7 @@ Tab = function ($element, options) {
 	self.$bodyWrapper = self.$bodyItem.parent();
 	self.$allItem = self.$bodyItem.add(self.$navItem);
 	self.$setClassChooseElement = $(self.o.setClassChooseElementSelector);
+	self.hash = location.hash;
 	self.index = self.o.active;
 	self.isMoving = false;
 
