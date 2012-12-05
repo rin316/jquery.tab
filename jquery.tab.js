@@ -237,40 +237,43 @@ Tab = function ($element, options) {
 
 	/**
 	 * fixedHeight
-	 * @param {string} heightState - max:itemの高さを一番高いitemのheightに合わせる auto:自動調整アニメーション
+	 * itemの高さを調整する
 	 */
-	fn.fixedHeight = function (heightState) {
-		var self = this
-			,   height = 0
-			;
-		switch (heightState){
-			case 'max':
-				self.$bodyItem.each(function(){
-					height = Math.max(height, $(this).outerHeight());
-				});
+	fn.fixedHeight = function () {
+		if (this.o.fixedHeight) {
+			var  self = this
+				,height = 0
+				;
+			switch (self.o.fixedHeight){
+				//auto:高さを各itemの高さに変更(アニメーション)
+				case 'auto':
+					self.isMoving = true;
+					height= self.$bodyItem.eq(self.index).outerHeight();
 
-				if (navigator.userAgent.indexOf("MSIE 6") != -1) {
-					self.$bodyWrapper.height(height);
-				} else {
-					self.$bodyWrapper.css({ minHeight: height + 'px' });
-				}
-				break;
-
-			case 'auto':
-				self.isMoving = true;
-				height= self.$bodyItem.eq(self.index).outerHeight();
-
-				self.$bodyWrapper.animate(
-					{ height: height },
-					{
-						duration: self.o.speed * 2
-						,complete: function () {
-						self.isMoving = false;
-						$(this).css({ height: 'auto' });
+					self.$bodyWrapper.animate(
+						{ height: height },
+						{
+							duration: self.o.speed * 2
+							,complete: function () {
+							self.isMoving = false;
+							$(this).css({ height: 'auto' });
+						}
+						}
+					);
+					break;
+				//max:高さを一番高いitemの高さに統一
+				case 'max':
+					self.$bodyItem.each(function(){
+						height = Math.max(height, $(this).outerHeight());
+					});
+					//IE6ならheight、それ以外ならmin-heightをset
+					if (navigator.userAgent.indexOf("MSIE 6") != -1) {
+						self.$bodyWrapper.height(height);
+					} else {
+						self.$bodyWrapper.css({ minHeight: height + 'px' });
 					}
-					}
-				);
-				break;
+					break;
+			}
 		}
 	};
 })(Tab.prototype);//Tab.prototype
