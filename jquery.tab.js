@@ -102,11 +102,6 @@ Tab = function ($element, options) {
 	 */
 	fn.eventify = function () {
 		var self = this;
-		self.setClass();//active tabにclassをset
-		if (self.o.setClassChooseElement){ self.setClassChooseElement(); }//指定elementに対して「接頭詞+index番号」をclassとして付与
-		self.animate('init');//active tabのみを表示
-		if (self.o.fixedHeight) { self.fixedHeight('max')}//itemの高さを一番高いitemのheightに合わせる
-
 		//Click Event
 		self.$navItem.on('click', function (e) {
 			e.preventDefault();
