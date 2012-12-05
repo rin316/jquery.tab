@@ -78,7 +78,14 @@ Tab = function ($element, options) {
 				self.index = $.cookie(self.o.cookieName);
 			}
 		}
+		self.eventify();
 
+	/**
+	 * eventify
+	 * eventをbind
+	 */
+	fn.eventify = function () {
+		var self = this;
 		self.setClass();//active tabにclassをset
 		if (self.o.setClassChooseElement){ self.setClassChooseElement(); }//指定elementに対して「接頭詞+index番号」をclassとして付与
 		self.animate('init');//active tabのみを表示
@@ -86,15 +93,19 @@ Tab = function ($element, options) {
 
 		//Click Event
 		self.$navItem.on('click', function (e) {
-			var index = self.$navItem.index(this);
 			e.preventDefault();
-
-			if(! self.indexUpdate(index)) { return false; }//self.indexを更新 更新が無ければ処理を停止
-			if (self.o.cookie) { $.cookie(self.o.cookieName, self.index); }//set cookie
-			self.setClass();//active tabにclassをset
-			if (self.o.setClassChooseElement){ self.setClassChooseElement(); }//指定elementに対して「接頭詞+index番号」をclassとして付与
-			self.animate();//active tabのみを表示
-			if (! self.o.fixedHeight) { self.fixedHeight('auto')}//itemの高さをゆっくり変更
+			//indexを取得
+			var index = self.$navItem.index(this);
+			//self.indexを更新 更新が無ければ処理を停止
+			if(! self.indexUpdate(index)) { return false; }
+			//set cookie
+			if (self.o.cookie) { $.cookie(self.o.cookieName, self.index); }
+			//active tabにclassをset
+			self.setClass();
+			//指定elementに対して「接頭辞+index番号」をclassとして付与
+			self.setClassChooseElement();
+			//active tabのみを表示
+			self.animate();
 		});
 	};
 
